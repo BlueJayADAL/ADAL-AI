@@ -9,13 +9,6 @@
 /UnitySDK/Assets/Plugins*
 /UnitySDK/Assets/Demonstrations*
 
-# Tensorflow Model Info
-/models
-/summaries
-
-# Training environments
-/envs
-
 # Environemnt logfile
 *UnitySDK.log
 
