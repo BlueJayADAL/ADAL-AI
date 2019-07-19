@@ -58,10 +58,15 @@ $ export PATH=/usr/local/cuda-[cuda_version]/bin${PATH:+:${PATH}}
 $ nvcc -V
 ```
 Now that CUDA is installed, switch back to the GUI with <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>F1</kbd>.
-In order for the paths to work permanently, they should be added to the `.profile` file.
+In order for the paths to work permanently, they should be added to the `.profile` file or `.bashrc`
 ```sh
-$ sudo nano \.profile
+$ sudo nano ~/.profile
 ```
+or
+```sh
+$ sudo nano ~/.bashrc
+```
+
 Add to the end of the file.
 ```
 export PATH=/usr/local/cuda-[cuda_version]/bin${PATH:+:${PATH}}
@@ -69,8 +74,15 @@ export LD_LIBRARY_PATH=/usr/local/cuda-[cuda_version]/lib64${LD_LIBRARY_PATH:+:$
 ```
 Verify the installation and successful exports.
 ```sh
+$ source ~/.bashrc
 $ nvcc -V
 ```
+
+## cuDNN Installation
+Follow Step 3 of this [cuDNN] post. 
+
+Locate and Download NVIDIA’s cuDNN 7.4
+
 ## Tensorflow Benchmark
 The benchmark requires Python3.
 First make sure that **virtualenv** is installed.
@@ -95,11 +107,15 @@ $ python scripts/tf_cnn_benchmarks/tf_cnn_benchmarks.py --num_gpus=2
 ```
 A reference for the benchmark performance can be found [here](https://www.tensorflow.org/guide/performance/benchmarks).
 
+## Installation with Anaconda Tensorflow
+If having an `Illegal instruction (core dumped)` error when executing `import tensorflow as tf`, it means the host computer CPU is too old and does not support AVX instruciton set. There are two options to get around this: 1) build from source (may be buggy); or 2) use Anaconda tensorflow, which is not pre-compiled with AVX option. 
 
+Follow this [Conda] post to setup. 
 
 [Driver]: <https://www.nvidia.com/Download/index.aspx?lang=en-us>
 [CUDA]: <https://developer.nvidia.com/cuda-downloads?target_os=Linux&target_arch=x86_64&target_distro=Ubuntu&target_version=1804&target_type=runfilelocal>
 [Medium]: <https://medium.com/@avinchintha/how-to-install-nvidia-drivers-and-cuda-10-0-for-rtx-2080-ti-gpu-on-ubuntu-16-04-18-04-ce32e4edf1c0>
 [Tensorflow]: <https://github.com/tensorflow/benchmarks>
-
+[cuDNN]: <https://medium.com/@cjanze/how-to-install-tensorflow-with-gpu-support-on-ubuntu-18-04-lts-with-cuda-10-nvidia-gpu-312a693744b5>
+[Conda]: <https://medium.com/datadriveninvestor/install-tensorflow-gpu-to-use-nvidia-gpu-on-ubuntu-18-04-do-ai-71b0ce64ebc5>
 
