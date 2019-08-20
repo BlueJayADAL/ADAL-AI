@@ -1,8 +1,10 @@
-﻿# Crawler demonstration
+
+﻿
+ # Crawler demonstration
 [![N|Solid](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBH8MYoq_M6I5yFqNsIH-SDUwR403f4nMKHONWwLjHR8InZN_1MA)](https://etown.edu)
 ## Installation
 :information_source: The Guide currently is for a Windows 10 demonstration
-:information_source: [ML-Agents](https://github.com/Unity-Technologies/ml-agents) requires Python 3.6 
+:information_source: [ML-Agents](https://github.com/Unity-Technologies/ml-agents) requires Python 3.6 (64-bit)
 
 1. Clone the repository or download directly from GitHub (If  downloaded extract the files)
 2. Open the Command Prompt
@@ -21,22 +23,22 @@ pip install -r requirements.txt
 1. Change the parameters in `config\crawler.config`
 2. Enter command into Command Prompt, replace `run-id` with a model name of your choice.
 ```console
-mlagents-learn config\crawler_config.yaml --env=envs\Crawler\Crawler.exe --run-id=[run-id]
+mlagents-learn config\crawler_config.yaml --env=envs\TrainingCrawler\Crawler.exe --run-id=[run-id]
 ```
 |Command|Description  |
 |--|--|
 |`--train`|Trains the model|
 |`--slow`|Visual output is at much higher frame rate and resolution (Slows down training significantly)|
 |`--no-graphics`|Does not display any graphics(Speeds up training)|
-|`--load`|If a model with the same id exists it will continue to train it (If `max_steps` in the config file are reached, nothing will happen|
+|`--load`|If a model with the same id exists it will continue to train it (If `max_steps` in the config file are reached, no training will happen. This can be used to visually check how well the model is performing. (Make sure to use `--slow` to have a fluent visual)|
 A normal training process would look the following way:
 ```console
-mlagents-learn config\crawler_config.yaml --env=envs\Crawler\Crawler --run-id=[run-id] --train
+mlagents-learn config\crawler_config.yaml --env=envs\TrainingCrawler\Crawler --run-id=[run-id] --train
 ```
 ### Use trained model
-In order for using the already supplied trained model enter the following command:
+In order for use a trained model enter the following command:
 ```console
-mlagents-learn config\crawler_config.yaml --env=envs\Crawler\Crawler.exe --run-id=DynamicCrawler-1DS-7L --slow --load
+mlagents-learn config\crawler_config.yaml --env=envs\TrainingCrawler\Crawler.exe --run-id=[name_of_trained_model] --slow --load
 ```
 
 
@@ -50,12 +52,11 @@ tensorboard --logdir=summaries --host=localhost
 3. Open Tensorboard at [localhost:6006](http://localhost:6006)
 
 ## Demonstration
-### Untrained model just starting to learn
-```console
-mlagents-learn config\crawler_config.yaml --env=envs\Crawler\Crawler.exe --run-id=demo-run --slow
-```
-### 30 hours of 
-```console
-mlagents-learn config\crawler_config.yaml --env=envs\Crawler\Crawler.exe --run-id=DynamicCrawler-1DS-7L --slow --load
-```
 
+The standalone executable in `envs\DemoCrawler` has 3 models available:
+
+|  |max_steps|hidden_units|num_layers|Training time|
+|--|--|--|--|--|
+|Bad Model|100,000|512|3|18 Minutes|
+|Fair Model|1,000,000|512|5|3 Hours 43 Minutes|
+|Good Model|2,500,000|512|7|10 Hours 58 Minutes|
